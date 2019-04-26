@@ -1,0 +1,15 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t johnlorac/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run johnlorac/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t johnlorac/multi-client ./client
+  - docker build -t johnlorac/multi-nginx ./nginx
+  - docker build -t johnlorac/multi-server ./server
+  - docker build -t johnlorac/multi-worker ./worker
