@@ -18,6 +18,19 @@
             "image": "johnlorac/multi-worker",
             "hostname": "worker",
             "essential": false
+        },
+        {
+            "name": "nginx",
+            "image": "johnlorac/multi-nginx",
+            "hostname": "nginx",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "container": 80
+                }
+            ],
+            "links": ["client", "server"]
         }
     ]
 }
